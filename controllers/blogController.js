@@ -28,6 +28,7 @@ const blog_create_get = (req, res) => {
 
 const blog_create_post = (req, res) => {
   const blog = new Blog(req.body);
+  console.log("Body Data ", req.body);
   blog.save()
     .then(result => {
       res.redirect('/blogs');
