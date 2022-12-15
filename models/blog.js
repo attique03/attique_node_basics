@@ -14,11 +14,11 @@ const blogSchema = new Schema({
     type: String,
     required: true
   },
-  // blogUser: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   required: true,
-  //   ref: 'User',
-  // }
+  blogUser: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'user',
+  }
 }, { timestamps: true });
 
 const Blog = mongoose.model('Blog', blogSchema);
