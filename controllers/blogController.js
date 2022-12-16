@@ -27,7 +27,8 @@ const single_blog_details = (req, res) => {
   const id = req.params.id;
   Blog.findById(id)
     .then((result) => {
-      res.render("edit", { blog: result, title: "Blog Details" });
+      // console.log('Result ===> ', result);
+      res.render("edit", { blogData: result, title: "Blog Details" });
     })
     .catch((err) => {
       console.log(err);
@@ -42,12 +43,12 @@ const blog_create_get = (req, res) => {
 const blog_create_post = (req, res) => {
   // const blog = new Blog(req.body);
   // const id = req.user._id;
-  // console.log('Inside Create ==>', id);
+  console.log("Inside Create ==>", req.body, req.user._id);
   const blog = new Blog({
     title: req.body.title,
     snippet: req.body.snippet,
     body: req.body.body,
-    blogUser: req?.user?._id
+    blogUser: req?.user?._id,
   });
 
   console.log("Body Data ", req.body);
@@ -56,6 +57,19 @@ const blog_create_post = (req, res) => {
     .save()
     .then((result) => {
       res.redirect("/blogs");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+const blog_update_put = (req, res) => {
+  const id = req.params.id;
+  
+  Blog.findByIdAndUpdate({_id: id}, req.body)
+    .then((result) => {
+      console.log('Result ===> ', result);
+      res.redirect("/blogs")
     })
     .catch((err) => {
       console.log(err);
@@ -79,5 +93,6 @@ module.exports = {
   blog_create_get,
   blog_create_post,
   blog_delete,
-  single_blog_details
+  single_blog_details,
+  blog_update_put,
 };
