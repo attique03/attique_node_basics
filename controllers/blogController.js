@@ -1,6 +1,6 @@
 const Blog = require("../models/blog");
 
-const blog_index = (req, res) => {
+const getBlogs = (req, res) => {
   Blog.find()
     .sort({ createdAt: -1 })
     .then((result) => {
@@ -11,7 +11,7 @@ const blog_index = (req, res) => {
     });
 };
 
-const blog_details = (req, res) => {
+const getBlogById = (req, res) => {
   const id = req.params.id;
   Blog.findById(id)
     .then((result) => {
@@ -23,11 +23,10 @@ const blog_details = (req, res) => {
     });
 };
 
-const single_blog_details = (req, res) => {
+const getBlogToUpdate = (req, res) => {
   const id = req.params.id;
   Blog.findById(id)
     .then((result) => {
-      // console.log('Result ===> ', result);
       res.render("edit", { blogData: result, title: "Blog Details" });
     })
     .catch((err) => {
@@ -36,14 +35,11 @@ const single_blog_details = (req, res) => {
     });
 };
 
-const blog_create_get = (req, res) => {
+const handleNewBlog = (req, res) => {
   res.render("create", { title: "Create a new blog" });
 };
 
-const blog_create_post = (req, res) => {
-  // const blog = new Blog(req.body);
-  // const id = req.user._id;
-  console.log("Inside Create ==>", req.body, req.user._id);
+const createBlog = (req, res) => {
   const blog = new Blog({
     title: req.body.title,
     snippet: req.body.snippet,
@@ -63,7 +59,7 @@ const blog_create_post = (req, res) => {
     });
 };
 
-const blog_update_put = (req, res) => {
+const updateBlog = (req, res) => {
   const id = req.params.id;
   
   Blog.findByIdAndUpdate({_id: id}, req.body)
@@ -76,7 +72,7 @@ const blog_update_put = (req, res) => {
     });
 };
 
-const blog_delete = (req, res) => {
+const deleteBlog = (req, res) => {
   const id = req.params.id;
   Blog.findByIdAndDelete(id)
     .then((result) => {
@@ -88,11 +84,11 @@ const blog_delete = (req, res) => {
 };
 
 module.exports = {
-  blog_index,
-  blog_details,
-  blog_create_get,
-  blog_create_post,
-  blog_delete,
-  single_blog_details,
-  blog_update_put,
+  getBlogs,
+  getBlogById,
+  handleNewBlog,
+  createBlog,
+  deleteBlog,
+  getBlogToUpdate,
+  updateBlog
 };
