@@ -1,22 +1,14 @@
 {
-  "name": "crash-course",
+  "name": "blog-posts",
   "version": "1.0.0",
-  "description": "a node crash course",
-  "main": "server.js",
+  "description": "A sports blog application that has CRUD funcitonalities",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/iamshaunjp/node-crash-course.git"
-  },
-  "author": "net ninja",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/iamshaunjp/node-crash-course/issues"
-  },
-  "homepage": "https://github.com/iamshaunjp/node-crash-course#readme",
+  "author": "Attique Ur Rehman",
+  "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.1.0",
     "colors": "^1.4.0",
