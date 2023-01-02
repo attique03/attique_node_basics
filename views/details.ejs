@@ -10,15 +10,20 @@
         <p><%= blog.body %></p>
       </div>
       <% if(user && blog.blogUser.toString() === user._id.toString()) {%>
-        <!-- <a class="single" href="/blogs/<%= blog._id %>"></a> -->
+      <!-- <a class="single" href="/blogs/<%= blog._id %>"></a> -->
       <a class="edit" href="/blogs/<%= blog._id %>/edit">
-        <img src="/edit.svg" alt="Edit icon" style="height: 20px; width: 20px;"/>
+        <img
+          src="/edit.svg"
+          alt="Edit icon"
+          style="height: 20px; width: 20px"
+        />
       </a>
       <a class="delete" data-doc="<%= blog._id %>">
-        <img src="/trashcan.svg" alt="delete icon"/>
+        <img src="/trashcan.svg" alt="delete icon" />
       </a>
+      <% } else { %>
+      <div></div>
       <% } %>
-      
     </div>
 
     <%- include("./partials/footer.ejs") %>
