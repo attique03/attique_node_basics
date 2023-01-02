@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 // handle errors
 const handleErrors = (err) => {
@@ -71,10 +72,21 @@ const authUser = async (req, res) => {
   console.log("Inside Login Controller POst ", email, password);
 
   try {
-    const user = await User.login(email, password);
-    const token = createToken(user._id);
-    res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
-    res.status(200).json({ user: user._id });
+    const user = await User.findOne({ email });
+    if (user) {
+      const auth = await bcrypt.compare(password, user.password);
+      if (auth) {
+        console.log("Auth: ", auth);
+        const token = createToken(user._id);
+        res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
+        res.status(200).json({ user: user._id });
+        // return user;
+      } else {
+        throw Error("incorrect password");
+      }
+    } else {
+      throw Error("incorrect email");
+    }
   } catch (err) {
     const errors = handleErrors(err);
     res.status(400).json({ errors });
